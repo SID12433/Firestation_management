@@ -54,7 +54,7 @@ class EmployeeView(ViewSet):
             return Response({"msg": "Employee not found"}, status=status.HTTP_404_NOT_FOUND)
         
 
-class UserView(ViewSet):        #to get list of users of recently logged in (one hour ago)
+class UserView(ViewSet):        
     authentication_classes=[authentication.TokenAuthentication]
     permission_classes=[permissions.IsAuthenticated]
     

@@ -71,7 +71,7 @@ class VehicleView(ViewSet):
             return Response(data=serializer.data)
         else:
             return Response(data=serializer.errors)
-    
+
     def list(self,request,*args,**kwargs):
         qs=Vehicle.objects.all()
         serializer=VehicleSerializer(qs,many=True)
@@ -96,10 +96,10 @@ class VehicleView(ViewSet):
 class TrainingViewSet(ViewSet):
     authentication_classes=[authentication.TokenAuthentication]
     permission_classes=[permissions.IsAuthenticated]
+
     
     def create(self,request,*args,**kwargs):
         employee=request.user.employee
-        # print(employee)
         serializer=TrainingSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(employee=employee)
