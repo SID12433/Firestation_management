@@ -106,6 +106,13 @@ class TrainingViewSet(ViewSet):
             return Response(data=serializer.data)
         else:
             return Response(data=serializer.errors)
+        
+    def list(self,request,*args,**kwargs):
+        employee=request.user.employee
+        qs=Training.objects.filter(employee=employee)
+        serializer=TrainingSerializer(qs,many=True)
+        return Response(data=serializer.data)
+        
 
     @action(methods=['post'], detail=True)
     def mark_completed(self, request, *args, **kwargs):

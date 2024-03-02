@@ -131,7 +131,7 @@ class TrainingList(models.Model):
 
 class Training(models.Model):
     training_list = models.ForeignKey(TrainingList, on_delete=models.CASCADE)
-    employee = models.OneToOneField(Employee, on_delete=models.CASCADE,unique=True)
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     status = models.CharField(max_length=20, default='Pending')
 
     
