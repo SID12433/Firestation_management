@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from stationapi.models import User,Incident,Feedback,IncidentStatus
+from stationapi.models import User,Incident,Feedback,IncidentStatus,CustomUser
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -13,6 +13,12 @@ class UserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)
+    
+    def validate(self, attrs):
+        username = attrs.get('username')
+        if username and CustomUser.objects.filter(username=username, user_type='User').exists():
+            raise serializers.ValidationError({'username': 'Username already exists for a User.'})
+        return attrs
     
 class IncidentSerializer(serializers.ModelSerializer):
     class Meta:

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from stationapi.models import Employee,Vehicle,Equipment,Training
+from stationapi.models import Employee,Vehicle,Equipment,Training,CustomUser
 
         
 class EmployeeSerializer(serializers.ModelSerializer):
@@ -12,6 +12,12 @@ class EmployeeSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return Employee.objects.create_user(**validated_data)
+    
+    def validate(self, attrs):
+        username = attrs.get('username')
+        if username and CustomUser.objects.filter(username=username, user_type='Employee').exists():
+            raise serializers.ValidationError({'username': 'Username already exists for a Employee.'})
+        return attrs
     
     
 class VehicleSerializer(serializers.ModelSerializer):
