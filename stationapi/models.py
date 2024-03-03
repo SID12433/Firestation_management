@@ -19,19 +19,19 @@ class CustomUser(AbstractUser):
 
 
 class Station(CustomUser):
-    name=models.CharField(max_length=100)
+    name=models.CharField(max_length=100,unique=True)
     location=models.CharField(max_length=100)
-    phone=models.CharField(max_length=100)
-    email_address=models.EmailField()
+    phone=models.CharField(max_length=100,unique=True)
+    email_address=models.EmailField(unique=True)
     
     def __str__(self):
         return self.name
     
     
 class Employee(CustomUser):
-    name=models.CharField(max_length=50)
-    phone=models.CharField(max_length=100)
-    email_address=models.EmailField()
+    name=models.CharField(max_length=50,unique=True)
+    phone=models.CharField(max_length=100,unique=True)
+    email_address=models.EmailField(unique=True)
     is_available=models.BooleanField(default=True)
 
     def __str__(self):
@@ -47,9 +47,9 @@ class Employee(CustomUser):
    
     
 class User(CustomUser):
-    name=models.CharField(max_length=50)
-    phone=models.CharField(max_length=100)
-    email_address=models.EmailField()
+    name=models.CharField(max_length=50,unique=True)
+    phone=models.CharField(max_length=100,unique=True)
+    email_address=models.EmailField(unique=True)
     location=models.CharField(max_length=100)
     last_logged=models.DateTimeField(auto_now_add=True,null=True)
     
