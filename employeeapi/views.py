@@ -105,7 +105,7 @@ class TrainingViewSet(ViewSet):
             serializer.save(employee=employee)
             return Response(data=serializer.data)
         else:
-            return Response(data=serializer.errors)
+            return Response(data=serializer.errors,status=status.HTTP_400_BAD_REQUEST)
         
     def list(self,request,*args,**kwargs):
         employee=request.user.employee
